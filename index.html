@@ -3,6 +3,44 @@
   <head>
     <link rel="stylesheet" type="text/css" href="/index.css">
     <title>Robin Jayaswal</title>
+    <script>
+      function getAnswer() {
+        // the following two lines of code were significantly based on code at:
+        // http://www.w3schools.com/js/tryit.asp?filename=try_dom_select_option
+        // the code is for getting the selected index of a select bar
+        var selectBar = document.getElementById("robinScoreSelect")
+        var selectedNumber = selectBar.selectedIndex + 1
+
+        if (selectedNumber < 4){
+          alert(selectedNumber + "? So low? I was only a kid!")
+        }
+        else if (selectedNumber < 7){
+          alert("Yeah, " + selectedNumber + " sounds about right. Pretty mediocre")
+        }
+        else {
+          var aOrAn = selectedNumber === 8 ? "An " : "A "
+          alert(aOrAn + selectedNumber + "? Don't lie to me, it sucked")
+        }
+
+        // the syntax for changing style of element is used from
+        // http://www.w3schools.com/jsref/dom_obj_style.asp
+        var nextButton = document.getElementById("nextButtonContainer")
+        nextButton.style.display = "block"
+      }
+
+      function nextScreen() {
+        var initialDisplay = document.getElementById("initialDisplay")
+        initialDisplay.style.display = "none"
+
+        var nextButton = document.getElementById("nextButtonContainer")
+        nextButton.style.display = "none"
+
+        var siteDisplay = document.getElementById("siteDisplay")
+        siteDisplay.style.display = "block"
+      }
+    </script>
+
+    </script>
   </head>
 
   <body>
@@ -10,5 +48,35 @@
       <span>Robin's Site</span>
     </div>
 
+    <div id="initialDisplay">
+      <h3>Stop. Only Those Who Pass the Following Test May Enter This Site.</h3>
+      <span>On a scale from 1 to 10, please rate Robin Jayaswal's performance as Charlie in his 4th grade class's 2006 production of
+        "Charlie And The Chocolate Factory":</span>
+      <br>
+      <select id="robinScoreSelect">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+      </select>
+
+      <input type="button" onclick="getAnswer()" value="Submit">
+    </div>
+
+    <div class="next-button" id="nextButtonContainer" style="display: none;">
+      <span>Fine, You May Pass</span>
+      <input type="button" onclick="nextScreen()" value="Continue">
+    </div>
+
+    <div class="site-view" id="siteDisplay" style="display: none; background-image: url(http://animal-dream.com/data_images/robin/robin1.jpg);">
+      <span></span>
+
+    </div>
   </body>
 </html>

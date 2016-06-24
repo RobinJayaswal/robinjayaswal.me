@@ -1,12 +1,27 @@
-
+html {
+  height: 100%
+}
+body {
+  padding: 20px;
+  height: 100%
+}
 
 body .header-box {
-  margin: 20px;
   border-bottom-style: solid;
   border-bottom-color: #00ffff;
   border-bottom-width: thin;
 }
 
 body .header-box span {
-  font-size: 30px
+  font-size: 30px;
+}
+
+body .next-button {
+  margin-top: 30px;
+  margin-left: 50px
+}
+
+body .site-view {
+  height: 100%;
+  width: 100%;
 }
