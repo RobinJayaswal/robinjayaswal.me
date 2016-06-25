@@ -12,14 +12,14 @@
         var selectedNumber = selectBar.selectedIndex + 1
 
         if (selectedNumber < 4){
-          alert(selectedNumber + "? So low? I was only a kid!")
+          alert(selectedNumber + "? So low? A little harsh.")
         }
         else if (selectedNumber < 7){
           alert("Yeah, " + selectedNumber + " sounds about right. Pretty mediocre")
         }
         else {
           var aOrAn = selectedNumber === 8 ? "An " : "A "
-          alert(aOrAn + selectedNumber + "? Don't lie to me, it sucked")
+          alert(aOrAn + selectedNumber + "? Kinda high if you ask me.")
         }
 
         // the syntax for changing style of element is used from
@@ -28,15 +28,20 @@
         nextButton.style.display = "block"
       }
 
+      // function to display contents of screen after continue has been pressed
       function nextScreen() {
+
+        // hide the initial elements
         var initialDisplay = document.getElementById("initialDisplay")
         initialDisplay.style.display = "none"
-
         var nextButton = document.getElementById("nextButtonContainer")
         nextButton.style.display = "none"
 
+        // show the previously hidden elements
         var siteDisplay = document.getElementById("siteDisplay")
         siteDisplay.style.display = "block"
+
+        document.body.style.height = "1250px"
       }
     </script>
 
@@ -50,33 +55,35 @@
 
     <div id="initialDisplay">
       <h3>Stop. Only Those Who Pass the Following Test May Enter This Site.</h3>
-      <span>On a scale from 1 to 10, please rate Robin Jayaswal's performance as Charlie in his 4th grade class's 2006 production of
-        "Charlie And The Chocolate Factory":</span>
+      <span>On a scale from 1 to 10, please estimate the thing:</span>
       <br>
-      <select id="robinScoreSelect">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10</option>
-      </select>
-
-      <input type="button" onclick="getAnswer()" value="Submit">
+      <div class="selection-box">
+        <select id="robinScoreSelect">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+        </select>
+        <br>
+        <input type="button" onclick="getAnswer()" value="Submit">
+      </div>
     </div>
 
     <div class="next-button" id="nextButtonContainer" style="display: none;">
-      <span>Fine, You May Pass</span>
+      <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSYCzVUKvWhwROQvo_C4crTl5V_tpCvbPV14AZV7mQAnDDruvFyApAe6rH7">
       <input type="button" onclick="nextScreen()" value="Continue">
     </div>
 
-    <div class="site-view" id="siteDisplay" style="display: none; background-image: url(http://animal-dream.com/data_images/robin/robin1.jpg);">
+    <div class="site-view" id="siteDisplay" style="display: none;">
       <span></span>
-
+      <img src="http://animal-dream.com/data_images/robin/robin1.jpg">
+      <span>A Robin</span>
     </div>
   </body>
 </html>
