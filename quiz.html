@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/quiz.css">
+    <title>Robin Jayaswal</title>
+    <script>
+      function getAnswer() {
+        // the following two lines of code were significantly based on code at:
+        // http://www.w3schools.com/js/tryit.asp?filename=try_dom_select_option
+        // the code is for getting the selected index of a select bar
+        var selectBar = document.getElementById("robinScoreSelect")
+        var selectedNumber = selectBar.selectedIndex + 1
+
+        if (selectedNumber < 4){
+          alert(selectedNumber + "? So low? A little harsh.")
+        }
+        else if (selectedNumber < 7){
+          alert("Yeah, " + selectedNumber + " sounds about right. Pretty mediocre")
+        }
+        else {
+          var aOrAn = selectedNumber === 8 ? "An " : "A "
+          alert(aOrAn + selectedNumber + "? Kinda high if you ask me.")
+        }
+
+        // the syntax for changing style of element is used from
+        // http://www.w3schools.com/jsref/dom_obj_style.asp
+        var nextButton = document.getElementById("nextButtonContainer")
+        nextButton.style.display = "block"
+      }
+
+      // function to display contents of screen after continue has been pressed
+      function nextScreen() {
+
+        // hide the initial elements
+        var initialDisplay = document.getElementById("initialDisplay")
+        initialDisplay.style.display = "none"
+        var nextButton = document.getElementById("nextButtonContainer")
+        nextButton.style.display = "none"
+
+        // show the previously hidden elements
+        var siteDisplay = document.getElementById("siteDisplay")
+        siteDisplay.style.display = "block"
+
+        document.body.style.height = "1250px"
+      }
+    </script>
+
+    </script>
+  </head>
+
+  <body>
+    <div class="header-box">
+      <span>Robin's Site</span>
+    </div>
+
+    <div id="initialDisplay">
+      <h3>Stop. Only Those Who Pass the Following Test May Enter This Site.</h3>
+      <span>On a scale from 1 to 10, please estimate the thing:</span>
+      <br>
+      <div class="selection-box">
+        <select id="robinScoreSelect">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+        </select>
+        <br>
+        <input type="button" onclick="getAnswer()" value="Submit">
+      </div>
+    </div>
+
+    <div class="next-button" id="nextButtonContainer" style="display: none;">
+      <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSYCzVUKvWhwROQvo_C4crTl5V_tpCvbPV14AZV7mQAnDDruvFyApAe6rH7">
+      <input type="button" onclick="nextScreen()" value="Continue">
+    </div>
+
+    <div class="site-view" id="siteDisplay" style="display: none;">
+      <span></span>
+      <img src="http://animal-dream.com/data_images/robin/robin1.jpg">
+      <span>A Robin</span>
+    </div>
+  </body>
+</html>

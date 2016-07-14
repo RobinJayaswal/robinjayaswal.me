@@ -3,87 +3,256 @@
   <head>
     <link rel="stylesheet" type="text/css" href="/index.css">
     <title>Robin Jayaswal</title>
+
     <script>
-      function getAnswer() {
-        // the following two lines of code were significantly based on code at:
-        // http://www.w3schools.com/js/tryit.asp?filename=try_dom_select_option
-        // the code is for getting the selected index of a select bar
-        var selectBar = document.getElementById("robinScoreSelect")
-        var selectedNumber = selectBar.selectedIndex + 1
+      window.setInterval(typeCommandText, 200);
 
-        if (selectedNumber < 4){
-          alert(selectedNumber + "? So low? A little harsh.")
+      var count =  0;
+      var stringToShow = "cat welcomeMessage.txt";
+      var secondLineString = "help"
+      var secondTypeDelay = 10
+      function typeCommandText() {
+        if (count < stringToShow.length){
+          document.getElementById("firstLine").innerHTML += stringToShow[count];
         }
-        else if (selectedNumber < 7){
-          alert("Yeah, " + selectedNumber + " sounds about right. Pretty mediocre")
+        else if (count == stringToShow.length){
+          document.getElementById("firstLineCursor").style.display = "none";
+          document.getElementById("welcomeMessage").style.display = "block";
+          document.getElementById("secondLine").style.display = "flex";
         }
-        else {
-          var aOrAn = selectedNumber === 8 ? "An " : "A "
-          alert(aOrAn + selectedNumber + "? Kinda high if you ask me.")
+        else if (count > stringToShow.length + secondTypeDelay && count < stringToShow.length + secondTypeDelay + secondLineString.length + 1) {
+          secondStringIndex = count - stringToShow.length - secondTypeDelay - 1;
+          document.getElementById("secondLineText").innerHTML += secondLineString[secondStringIndex];
         }
+        else if (count === stringToShow.length + secondTypeDelay + secondLineString.length + 1){
+          document.getElementById("secondLineCursor").style.display = "none";
+          document.getElementById("helpMessage").style.display = "block";
+          document.getElementById("inputLines").style.display = "flex";
+          document.getElementById("inputLine1").focus();
 
-        // the syntax for changing style of element is used from
-        // http://www.w3schools.com/jsref/dom_obj_style.asp
-        var nextButton = document.getElementById("nextButtonContainer")
-        nextButton.style.display = "block"
+          // the following code was based off the following stack overflow answer:
+          // http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
+          // it allows the detection of the enter key in a text box
+          document.getElementById("inputLine1")
+              .addEventListener("keyup", function(event) {
+                handleInput(event);
+              }
+          );
+        }
+        count += 1;
       }
 
-      // function to display contents of screen after continue has been pressed
-      function nextScreen() {
+      var currentInputLine = 1;
 
-        // hide the initial elements
-        var initialDisplay = document.getElementById("initialDisplay")
-        initialDisplay.style.display = "none"
-        var nextButton = document.getElementById("nextButtonContainer")
-        nextButton.style.display = "none"
+      var inputHandler = null;
 
-        // show the previously hidden elements
-        var siteDisplay = document.getElementById("siteDisplay")
-        siteDisplay.style.display = "block"
-
-        document.body.style.height = "1250px"
+      function resumeClicked() {
+        var win = window.open('/assets/techResume.pdf', '_blank');
+        win.focus();
       }
-    </script>
 
+      function aboutMeClicked() {
+        document.getElementById("about-me-container").scrollIntoView({block: "start", behavior: "smooth"});
+      }
+
+      function projectsClicked() {
+        document.getElementById("projects-container").scrollIntoView({block: "start", behavior: "smooth"});
+      }
+
+
+      function handleInput(event) {
+        event.stopImmediatePropagation();
+        if (event.keyCode == 13) {
+            // inputHandler = setTimeout(handleInput, 100);
+            var inputLineElement = "inputLine" + currentInputLine;
+            var text = document.getElementById(inputLineElement).value;
+            if (text === "open github"){
+              // the following code comes from the stackoverflow answer:
+              //http://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window-using-javascript
+              // it opens a window in new tab
+              var win = window.open('https://github.com/RobinJayaswal', '_blank');
+              win.focus();
+            }
+            if (text === "open linkedin"){
+              // the following code comes from the stackoverflow answer:
+              //http://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window-using-javascript
+              // it opens a window in new tab
+              var win = window.open('https://www.linkedin.com/in/robinjayaswal', '_blank');
+              win.focus();
+            }
+
+            if (text == "open projects"){
+              document.getElementById("projects-container").scrollIntoView({block: "start", behavior: "smooth"});
+            }
+
+            if (text == "open resume"){
+              var win = window.open('/assets/techResume.pdf', '_blank');
+              win.focus();
+            }
+
+            if (text == "open about"){
+              document.getElementById("about-me-container").scrollIntoView({block: "start", behavior: "smooth"});
+            }
+            // make current input line read only
+
+            document.getElementById(inputLineElement).readOnly = true;
+            document.getElementById(inputLineElement).blur();
+            document.getElementById(inputLineElement).removeEventListener("keyup", handleInput)
+            // add another input line below the current one
+            var inputLineDiv = document.createElement('div');
+
+            currentInputLine += 1;
+            inputLineElement = "inputLine" + currentInputLine;
+            inputLineDiv.className = 'input-line';
+            inputLineDiv.innerHTML = '<p>' + (currentInputLine + 2) + ':~/browser/ $ </p>\
+            <input type="text" id=' + inputLineElement + '>';
+
+
+            document.getElementById('inputLines').appendChild(inputLineDiv);
+            document.getElementById(inputLineElement).focus();
+            document.getElementById(inputLineElement)
+                .addEventListener("keyup", function(event) {
+                  handleInput(event);
+                }
+            );
+        }
+      }
     </script>
   </head>
 
   <body>
-    <div class="header-box">
-      <span>Robin's Site</span>
-    </div>
+    <div class="top-nav-bar">
+      <div class="robin-emoji-container">
+        <p>&#128038;</p>
+      </div>
 
-    <div id="initialDisplay">
-      <h3>Stop. Only Those Who Pass the Following Test May Enter This Site.</h3>
-      <span>On a scale from 1 to 10, please estimate the thing:</span>
-      <br>
-      <div class="selection-box">
-        <select id="robinScoreSelect">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-        </select>
-        <br>
-        <input type="button" onclick="getAnswer()" value="Submit">
+      <div class="link-container">
+        <div class="small-border">
+        </div>
+
+        <div class="link" onclick="resumeClicked()">
+          Resume
+        </div>
+
+        <div class="small-border">
+        </div>
+
+        <div class="link" onclick="projectsClicked()">
+          Projects
+        </div>
+
+        <div class="small-border">
+        </div>
+
+        <div class="link" onclick="aboutMeClicked()">
+          About
+        </div>
+
+        <div class="small-border">
+        </div>
+
+        <div class="link gh">
+          <a href="https://github.com/RobinJayaswal"><img src="/assets/whitegit32.png" /></a>
+        </div>
+
+        <div class="small-border">
+        </div>
+
+        <div class="link li">
+          <a href="https://www.linkedin.com/in/robinjayaswal"><img src="/assets/linkedin2.png" /></a>
+        </div>
+
+        <div class="small-border">
+        </div>
+
       </div>
     </div>
 
-    <div class="next-button" id="nextButtonContainer" style="display: none;">
-      <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSYCzVUKvWhwROQvo_C4crTl5V_tpCvbPV14AZV7mQAnDDruvFyApAe6rH7">
-      <input type="button" onclick="nextScreen()" value="Continue">
+    <div class="intro-banner">
+      <div class="first-line">
+        <p id="firstLine">1:~/browser/ $ </p>
+        <!-- Following code is from: https://codepen.io/ArtemGordinsky/pen/GnLBq
+          It blinks a cursor-->
+        <span class="blinking-cursor" id="firstLineCursor">|</span>
+
+      </div>
+      <div class="welcome-message" id="welcomeMessage">
+        <p>Welcome to my site!</br>My name is Robin Jayaswal, and I study CS and
+        math at Dartmouth College.</p>
+      </div>
+
+      <div class="second-line" id="secondLine">
+        <p id="secondLineText">2:~/browser/ $ </p>
+        <!-- Following code is from: https://codepen.io/ArtemGordinsky/pen/GnLBq
+          It blinks a cursor-->
+        <span class="blinking-cursor" id="secondLineCursor">|</span>
+      </div>
+
+      <div class="help-message" id="helpMessage">
+        <p>To open any menu item, press the link, OR, just type 'open [item]' right here
+        </br> For example, typing 'open github' will open my github in a new tab!</br>
+        Possible commands are 'open [github, linkedin, resume, about, projects]'</p>
+      </div>
+
+      <div class="input-lines" id="inputLines">
+        <div class="input-line">
+          <p>3:~/browser/ $ </p>
+          <input type="text" id="inputLine1">
+        </div>
+      </div>
     </div>
 
-    <div class="site-view" id="siteDisplay" style="display: none;">
-      <span></span>
-      <img src="http://animal-dream.com/data_images/robin/robin1.jpg">
-      <span>A Robin</span>
+    <div class="projects-container" id="projects-container">
+      <h2>Projects</h2>
+      <div class="project-row">
+        <div class="project-container">
+          <span class="project-title">College Pulse</span>
+          <a href="https://dartmouthpulse.com">dartmouthpulse.com</a>
+          <span>
+            Funded by Dartmouth Administration to create an institutional research platform.
+          </span>
+          <span>
+            Product is a web app (native mobile is next on list) aimed at increasing survey response rates and lowering costs of polling for institutions. Currently in testing by administration officials and student group leaders.
+          </span>
+          <span>
+            Written in Javascript, React, Node.js, a >20,000 lines of code production quality app.
+          </span>
+          <span>
+
+          </span>
+        </div>
+        <div class="project-container">
+          <span class="project-title">Tiny Search Engine</span>
+          <a href="https://github.com/RobinJayaswal/searchEngine">Github (Private, required by Dartmouth)</a>
+          <span>The Tiny Search Engine is a basic, modular search engine program capabale of crawling, indexing, and querying webpages internal to the Dartmouth CS Department server.</span>
+        </div>
+        <div class="project-container">
+          <span class="project-title">Linpy</span>
+          <a href="https://github.com/RobinJayaswal/linpy">Github</a>
+          <span>A homegrown library for matrix row reduction, inverse calculation, transposing, multiplication, and more.</span>
+        </div>
+      </div>
+      <div class="project-row">
+        <div class="project-container">
+          <span class="project-title">Spy Game</span>
+          <a href="https://gitlab.cs.dartmouth.edu/jay/project-starter-kit">Gitlab (Private, required by Dartmouth)</a>
+          <span>Pebble app, game server, and computer program that allows teams to play a real life spy game with communication and scoring through server. C</span>
+        </div>
+        <div class="project-container">
+          <span class="project-title">Source for this Site</span>
+          <a href="https://github.com/RobinJayaswal/robinjayaswal.me">Github</a>
+          <span>Pure HTML, CSS, and JS. No libraries, no nothing. Cite me if you borrow code for the sweet 'browser console' (patent pending).</span>
+        </div>
+
+      </div>
     </div>
+
+    <div class="about-me-container" id="about-me-container">
+      <h2>About Me Coming Soon</h2>
+      <p>
+        Figuring Out Who I Am
+      </p>
+    </div>
+
   </body>
 </html>

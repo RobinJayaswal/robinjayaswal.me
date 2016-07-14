@@ -1,0 +1,115 @@
+html {
+  height: 100%;
+  background-color: black
+}
+body {
+  margin: 40px;
+  padding: 20px;
+  height: 100%;
+  background-color: white;
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         0px 3px 5px 10px #ccc;
+
+}
+
+body .header-box {
+  border-bottom-style: solid;
+  border-bottom-color: #00ffff;
+  border-bottom-width: thin;
+}
+
+body .header-box span {
+  font-size: 30px;
+}
+
+body .selection-box {
+  margin-top: 20px;
+  width: 200px;
+  height: 100px;
+  margin-left: 50px;
+  background-color: black;
+  /* The following 3 lines are from https://css-tricks.com/snippets/css/css-box-shadow/
+      It puts a shadow behind the box */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         4px 3px 5px 6px #ccc;
+  border-radius: 5px;
+}
+
+body .selection-box select {
+  width: 100px;
+  margin-top: 20px;
+  margin-left: 50px;
+  background-color: black;
+  color: white;
+}
+
+body .selection-box input {
+  width: 100px;
+  height: 30px;
+  margin-top: 15px;
+  margin-left: 50px;
+  border-style: solid;
+  border-color: white;
+  border-width: thin;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+body .next-button {
+  margin-top: 20px;
+  padding-top: 20px;
+  width: 200px;
+  height: 80px;
+  margin-left: 50px;
+  background-color: white;
+  /* The following 3 lines are from https://css-tricks.com/snippets/css/css-box-shadow/
+      It puts a shadow behind the box */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         4px 3px 5px 6px #ccc;
+  border-radius: 5px;
+}
+
+body .next-button img {
+  height: 25px;
+  width: 30px;
+  margin-left: 85px;
+
+}
+body .next-button input {
+  width: 100px;
+  margin-left: 50px;
+  margin-top: 10px;
+  border-style: solid;
+  border-color: black;
+  border-width: thin;
+  background-color: white;
+  color: black;
+  height: 30px;
+
+}
+
+body .site-view span{
+  background-color: white;
+  font-size: 30px;
+  padding: 20px;
+  color: white;
+  background-color: black;
+  bottom: 0px;
+
+  /* The following 3 lines are from http://stackoverflow.com/questions/2861247/center-aligning-a-fixed-position-div
+      They horizontally center a fixed div*/
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  /* The following 3 lines are from https://css-tricks.com/snippets/css/css-box-shadow/
+      It puts a shadow behind the box */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         0px 3px 5px 6px #ccc;
+  border-radius: 5px;
+}
