@@ -63,58 +63,61 @@
       function handleInput(event) {
         event.stopImmediatePropagation();
         if (event.keyCode == 13) {
-            // inputHandler = setTimeout(handleInput, 100);
-            var inputLineElement = "inputLine" + currentInputLine;
-            var text = document.getElementById(inputLineElement).value;
-            if (text === "open github"){
-              // the following code comes from the stackoverflow answer:
-              //http://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window-using-javascript
-              // it opens a window in new tab
-              var win = window.open('https://github.com/RobinJayaswal', '_blank');
-              win.focus();
-            }
-            if (text === "open linkedin"){
-              // the following code comes from the stackoverflow answer:
-              //http://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window-using-javascript
-              // it opens a window in new tab
-              var win = window.open('https://www.linkedin.com/in/robinjayaswal', '_blank');
-              win.focus();
-            }
+          var inputLineElement = "inputLine" + currentInputLine;
+          document.getElementById(inputLineElement).readOnly = true;
+          document.getElementById(inputLineElement).blur();
+          document.getElementById(inputLineElement).removeEventListener("keyup", handleInput)
+          // add another input line below the current one
+          var inputLineDiv = document.createElement('div');
 
-            if (text == "open projects"){
-              document.getElementById("projects-container").scrollIntoView({block: "start", behavior: "smooth"});
-            }
+          currentInputLine += 1;
+          newInputLineElement = "inputLine" + currentInputLine;
+          inputLineDiv.className = 'input-line';
+          inputLineDiv.innerHTML = '<p>' + (currentInputLine + 2) + ':~/browser/ $ </p>\
+          <input type="text" id=' + newInputLineElement + '>';
 
-            if (text == "open resume"){
-              var win = window.open('/assets/techResume.pdf', '_blank');
-              win.focus();
-            }
 
-            if (text == "open about"){
-              document.getElementById("about-me-container").scrollIntoView({block: "start", behavior: "smooth"});
-            }
+          document.getElementById('inputLines').appendChild(inputLineDiv);
+          document.getElementById(newInputLineElement).focus();
+          document.getElementById(newInputLineElement)
+              .addEventListener("keyup", function(event) {
+                handleInput(event);
+              }
+          );
+
+          // inputHandler = setTimeout(handleInput, 100);
+
+          var text = document.getElementById(inputLineElement).value;
+          if (text === "open github"){
+            // the following code comes from the stackoverflow answer:
+            //http://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window-using-javascript
+            // it opens a window in new tab
+            var win = window.open('https://github.com/RobinJayaswal', '_blank');
+            win.focus();
+          }
+          if (text === "open linkedin"){
+            // the following code comes from the stackoverflow answer:
+            //http://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window-using-javascript
+            // it opens a window in new tab
+            var win = window.open('https://www.linkedin.com/in/robinjayaswal', '_blank');
+            win.focus();
+          }
+
+          if (text == "open projects"){
+            document.getElementById("projects-container").scrollIntoView({block: "start", behavior: "smooth"});
+          }
+
+          if (text == "open resume"){
+            var win = window.open('/assets/techResume.pdf', '_blank');
+            win.focus();
+          }
+
+          if (text == "open about"){
+            document.getElementById("about-me-container").scrollIntoView({block: "start", behavior: "smooth"});
+          }
             // make current input line read only
 
-            document.getElementById(inputLineElement).readOnly = true;
-            document.getElementById(inputLineElement).blur();
-            document.getElementById(inputLineElement).removeEventListener("keyup", handleInput)
-            // add another input line below the current one
-            var inputLineDiv = document.createElement('div');
 
-            currentInputLine += 1;
-            inputLineElement = "inputLine" + currentInputLine;
-            inputLineDiv.className = 'input-line';
-            inputLineDiv.innerHTML = '<p>' + (currentInputLine + 2) + ':~/browser/ $ </p>\
-            <input type="text" id=' + inputLineElement + '>';
-
-
-            document.getElementById('inputLines').appendChild(inputLineDiv);
-            document.getElementById(inputLineElement).focus();
-            document.getElementById(inputLineElement)
-                .addEventListener("keyup", function(event) {
-                  handleInput(event);
-                }
-            );
         }
       }
     </script>
